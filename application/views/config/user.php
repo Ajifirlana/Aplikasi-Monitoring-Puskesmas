@@ -74,9 +74,10 @@
         <table id="user" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
           <tr>
+            <th>Nama</th>
             <th>Username</th>
             <th>Password</th>
-            <th>Kategori</th>
+            <th>Nama Desa</th>
             
             <th>Aksi</th>
           </tr>
@@ -87,6 +88,7 @@
           foreach ($sm_user->result() as $row) {
            ?>
           <tr>
+            <td><?php echo $row->nama; ?></td>
              <td><?php echo $row->username; ?></td>
              <td><?php echo $row->password; ?></td>
              <td><?php echo $row->kategori; ?></td>
@@ -198,28 +200,22 @@
  
           <input type="hidden" readonly value="<?=$row->id_user;?>" name="id_user" class="form-control" >
  
+ <div class="form-group">
+            <label>Nama</label>
+          <input type="text" name="nama" autocomplete="off" value="<?=$row->username;?>" required placeholder="Masukkan Nama Lengkap" class="form-control" cols="30" rows="3">
+          </div>
+
           <div class="form-group">
             <label>Username</label>
-          <input type="text" name="username" autocomplete="off" value="<?=$row->username;?>" required placeholder="Masukkan Modal" class="form-control" cols="30" rows="3">
+          <input type="text" name="username" autocomplete="off" value="<?=$row->username;?>" required placeholder="Masukkan Username" class="form-control" cols="30" rows="3">
           </div>
 
   
 
          <div class="form-group">
-            <label>Kategori Bidang</label>
+            <label>Nama Desa</label>
      
-            <select name="kategori" class="form-control">
-              <?php 
-
-
-          foreach ($dtbidang->result() as $row) {
-           ?> 
-              <option value="<?php echo $row->nama_lengkap; ?>"><?php echo $row->nama_lengkap; ?></option>
-
-
-          <?php } ?>
-            
-            </select>
+            <input type="text" name="kategori" autocomplete="off" value="<?=$row->kategori;?>" required placeholder="Masukkan Username" class="form-control" cols="30" rows="3">
           
           </div>
            
@@ -250,7 +246,11 @@
           <h4 class="modal-title">Tambah Data Pengguna</h4>
         </div>
         <div class="modal-body">
- 
+ <div class="form-group">
+            <label>Nama</label>
+          <input type="text" name="nama" autocomplete="off" required="" placeholder="Masukkan Nama Lengkap" class="form-control" cols="30" rows="3">
+          </div>
+
           <div class="form-group">
             <label>Username</label>
           <input type="text" name="username" autocomplete="off" required="" placeholder="Masukkan Username" class="form-control" cols="30" rows="3">
@@ -266,20 +266,9 @@
           </div>
 
          <div class="form-group">
-            <label>Kategori Bidang</label>
+            <label>Nama Desa</label>
      
-            <select name="kategori" class="form-control">
-              <?php 
-
-
-          foreach ($dtbidang->result() as $row) {
-           ?> 
-              <option value="<?php echo $row->nama_lengkap; ?>"><?php echo $row->nama_lengkap; ?></option>
-
-
-          <?php } ?>
-            
-            </select>
+            <input type="text" name="kategori" autocomplete="off" required placeholder="contoh : Pasar Muara Tembesi" class="form-control" cols="30" rows="3">
           
           </div>
            

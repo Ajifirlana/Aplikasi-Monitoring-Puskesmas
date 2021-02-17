@@ -31,9 +31,9 @@ var $gallery_path_url;
  public function hitungdata()
 {   
     
-    $query = $this->db->query('SELECT databidang.nama_lengkap, kategori, COUNT( * ) as total FROM databidang
-                JOIN kegiatan_user ON databidang.nama_lengkap = kegiatan_user.kategori
-                 GROUP BY kategori
+    $query = $this->db->query('SELECT databidang.nama_lengkap, kategori_bumil, COUNT( * ) as total FROM databidang
+                JOIN data_ibu_hamil ON databidang.nama_lengkap = data_ibu_hamil.kategori_bumil
+                 GROUP BY kategori_bumil
                 ');
  
     
@@ -180,76 +180,15 @@ public function allberteknologi(){
     
 	}
 
-public function politik1(){
- $query = $this->db->get('berita');
- $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'politik' ORDER BY id_berita DESC LIMIT 1 ");
- return $query->result();
-
-
-    
-	}
-
-public function smpolitik(){
- $query = $this->db->get('berita');
- $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'politik'  ORDER BY id_berita DESC LIMIT 10 ");
- return $query->result();
-
-
-    
-	}
-	public function kesehatanbrs1(){
- $query = $this->db->get('berita');
- $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'kesehatan'  ORDER BY id_berita DESC LIMIT 1 ");
- return $query->result();
-
-	}
 
 public function smukes(){
- $query = $this->db->get('berita');
- $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'kesehatan' ORDER BY id_berita DESC LIMIT 10 ");
+ $query = $this->db->get('user');
+ $query = $this->db->query("SELECT * FROM user ORDER BY kategori DESC");
  return $query->result();
 
 
     
 	}	
-
-
-	
-
-
-
-
-public function nasional(){
-  
-  $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'nasional' ORDER BY id_berita DESC LIMIT 2 ");
-		return $query;
-	}
-
-public function politik(){
-  
-  $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'politik' ORDER BY id_berita DESC LIMIT 2 ");
-		return $query;
-	}
-
-	public function teknologi(){
-  
-  return $query = $this->db->query("SELECT * FROM berita WHERE kategori = 'teknologi' ORDER BY id_berita DESC LIMIT 5 ");
-		return $query;
-	}
-
-	public function get_product_keyword($keyword){
-			$this->db->select('*');
-			$this->db->from('kegiatan_user');
-			$this->db->like('created_at',$keyword);
-			$this->db->or_like('kategori',$keyword);
-			return $this->db->get()->result();
-		}
-
-
-
-	function datapolitik($number,$offset){
-		return $query = $this->db->get('berita',$number,$offset)->result();		
-	}
 
 public function admin_sm_berita(){
 	if ($this->session->userdata('level') == 'Admin') {
@@ -261,19 +200,131 @@ public function admin_sm_berita(){
     
 	}
 
-public function laporan(){
-    return $query = $this->db->query("SELECT * FROM kegiatan_user")->result();
-    
+
+	function laporan(){
+
+        $query=$this->db->query('SELECT * FROM data_ibu_hamil ORDER BY id_berita DESC');
+  return $query->result();
+
+    }
+
+
+	function laporanbayi(){
+
+        $query=$this->db->query('SELECT * FROM data_bayi ORDER BY id_bayi DESC');
+  return $query->result();
+
+    }
+
+    function laporan_imun(){
+
+        $query=$this->db->query('SELECT * FROM data_imunisasi JOIN data_ibu_hamil WHERE data_imunisasi.desa=data_ibu_hamil.nama_desa GROUP BY id_imunisasi DESC');
+  return $query->result();
+
+    }
+
+    function laporan_wanita_subur(){
+
+        $query=$this->db->query('SELECT * FROM data_wanita_subur JOIN data_ibu_hamil WHERE data_wanita_subur.nik=data_ibu_hamil.nik GROUP BY id_wanita DESC');
+  return $query->result();
+
+    }
+
+    function laporan_akseptor_kb(){
+
+        $query=$this->db->query('SELECT * FROM data_akseptor_kb ORDER BY id_akseptor DESC');
+  return $query->result();
+
+    }
+
+
+    function laporan_ws(){
+
+        $query=$this->db->query("SELECT * FROM data_wanita_subur WHERE create_by='".$this->session->id_user."' ORDER BY id_wanita DESC");
+  return $query->result();
+
+    }
+
+    function laporan_akb(){
+
+        $query=$this->db->query("SELECT * FROM data_akseptor_kb WHERE create_by='".$this->session->id_user."' ORDER BY id_akseptor DESC");
+  return $query->result();
+
+    }
+
+
+    function cetak_data($id){
+		$this->db->from('data_ibu_hamil');
+		
+		$this->db->where('id_berita',$id);
+		
+		return $this->db->get()->row();
 	}
+
+	function cetak_data_bayi($id){
+		$this->db->select('*');
+		$this->db->from('data_bayi');
+
+		$this->db->join('data_ibu_hamil','data_bayi.no_induk=data_ibu_hamil.nik','data_bayi.hml_ke=data_ibu_hamil.hamil_ke');
+
+		$this->db->where('id_bayi',$id);
+		
+		return $this->db->get()->row();
+	}
+
+	function cetak_data_akseptor($id){
+		$this->db->select('*');
+		$this->db->from('data_akseptor_kb');
+
+		$this->db->join('data_ibu_hamil','data_akseptor_kb.nik=data_ibu_hamil.nik');
+	
+		$this->db->where('id_akseptor',$id);
+		
+		return $this->db->get()->row();
+	}
+
+	function cetak_data_wanita_subur($id){
+		$this->db->select('*');
+		$this->db->from('data_wanita_subur');
+
+		$this->db->where('id_wanita',$id);
+		
+		return $this->db->get()->row();
+	}
+
+	function cetak_data_imun($id){
+		$this->db->select('*');
+		$this->db->from('data_imunisasi');
+
+		$this->db->join('data_ibu_hamil','data_imunisasi.desa=data_ibu_hamil.nama_desa');
+
+		$this->db->where('id_imunisasi',$id);
+		
+		return $this->db->get()->row();
+	}
+
+    public function get_product_keyword($keyword){
+			
+			$this->db->from('data_ibu_hamil');
+		
+			$this->db->like('nama_desa',$keyword);
+			$this->db->or_like('created_at',$keyword);
+			return $this->db->get()->result();
+		}
 
 public function admin_dtbidang(){
     return $query = $this->db->query("SELECT * FROM databidang");
     
 	}
 
+	public function admin_dtdesa(){
+    $query = $this->db->query("SELECT * FROM user");
+     return $query;
+	}
+
 
 public function admin_sm_user(){
-    $query = $this->db->query("SELECT * FROM user");
+    $query = $this->db->query("SELECT * FROM user WHERE level='User'");
     return $query;
 	}
 
@@ -295,18 +346,14 @@ public function laporan_user(){
     
 	}
 public function laporan_ku(){
-    return $query = $this->db->query("SELECT * FROM kegiatan_user WHERE create_by='".$this->session->id_user."'");
-    
+    $query = $this->db->query("SELECT * FROM data_ibu_hamil WHERE create_by='".$this->session->id_user."' ORDER BY id_berita DESC");
+     return $query;
 	}
 
-	public function get_berita_keyword($keyword){
-			$this->db->select('*');
-			$this->db->from('berita');
-			$this->db->like('judul',$keyword);
-			return $this->db->get()->result();
-			
-			
-		}
+public function laporan_bayi(){
+    $query = $this->db->query("SELECT * FROM data_bayi WHERE create_by='".$this->session->id_user."' ORDER BY id_bayi DESC");
+     return $query;
+	}
 
 	function edit_berita($where,$table){		
 

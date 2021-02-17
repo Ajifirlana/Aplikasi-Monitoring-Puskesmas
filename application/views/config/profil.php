@@ -40,11 +40,21 @@
         <?php
           echo $this->session->flashdata('msg');
           ?>
-<form action="<?php echo base_url('index.php/dashboard/update_profil')?>" method="post">
+<form action="<?php echo base_url('dashboard/update_profil')?>" method="post">
                  <div class="form-group">
-            <label>Username</label>
-            <input type="hidden" name="id_user" required="" autocomplete="off" placeholder="Masukkan Kategori Bidang" class="form-control" cols="5" rows="1" value="<?php echo $this->session->userdata('id_user'); ?>">
-          <input type="text" name="username" required="" autocomplete="off" placeholder="Masukkan Kategori Bidang" class="form-control" cols="5" rows="1" value="<?php echo $this->session->userdata('username'); ?>">
+                  <label>Nama</label>
+            <input type="text" name="nama" required="" autocomplete="off" class="form-control" cols="5" rows="1" value="<?php echo $this->session->userdata('nama'); ?>">
+           
+ <input type="hidden" name="id_user" required="" autocomplete="off" placeholder="Masukkan Kategori Bidang" class="form-control" cols="5" rows="1" value="<?php echo $this->session->userdata('id_user'); ?>">
+
+          </div>
+          <div class="form-group">
+ <label>Username</label>
+            <input type="text" name="username" required="" autocomplete="off" placeholder="Masukkan Kategori Bidang" class="form-control" cols="5" rows="1" value="<?php echo $this->session->userdata('username'); ?>">
+          </div>
+          <div class="form-group">
+<label>Nama Desa</label>
+         <input type="text" name="kategori" required="" autocomplete="off" placeholder="Masukkan Kategori Bidang" class="form-control" cols="5" rows="1" value="<?php echo $this->session->userdata('kategori'); ?>">
           </div>
 
           <div class="form-group">

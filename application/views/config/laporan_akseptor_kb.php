@@ -31,7 +31,7 @@
 
 
       <div class="box-header">
-        <h3 class="box-title">Data Laporan Ibu Hamil</h3>
+        <h3 class="box-title">Data Laporan Akseptor KB</h3>
         <div class="box-body">
 
           <div class="box-header">
@@ -125,10 +125,13 @@
           <thead>
           <tr>
             <th>No.</th>
-            <th>Nama User</th>
             <th>Tanggal</th>
+            <th>Nama Desa</th>
+            
             <th>Kategori</th>
-            <th>Nama Desa </th>
+
+            <th>NIK</th>
+
             <th>Aksi</th>
           <th></th>
           </tr>
@@ -136,22 +139,23 @@
           <tbody id="isi">
           <?php 
           $no = $this->uri->segment('3') + 1;
-          foreach ($sm_berita as $row) {
+          foreach ($data_akseptor as $row) {
  
            ?>
           <tr>
             <td><?php echo $no; ?></td>
-  <td><?php echo $row->username; ?></td>
             <td><?php echo tgl_indo($row->created_at); ?></td>
+<td><?php echo $row->nama_desa; ?></td>
 
+  <td><?php echo $row->kategori; ?></td>
+            
 
-            <td><?php echo $row->kategori_bumil; ?></td>
-            <td><?php echo $row->nama_desa; ?></td>
+            <td><?php echo $row->nik; ?></td>
 
-             <td><a href="<?php echo base_url();?>dashboard/cetak/<?php echo $row->id_berita;?>">View</a>
+             <td><a href="<?php echo base_url();?>dashboard/cetak_data_akseptor_kb/<?php echo $row->id_akseptor;?>">View</a>
 </td>
 
-             <td><a href="<?php echo base_url(); ?>dashboard/proses_hapus_kgiatanuser/<?php echo $row->id_berita ; ?>">Delete</a></td>
+             <td><a href="<?php echo base_url(); ?>dashboard/hapus_akseptor_kb/<?php echo $row->id_akseptor ; ?>">Delete</a></td>
 
              
            
@@ -385,61 +389,6 @@
 <!-- ./wrapper -->
 
 
-    <!-- Modal Ubah -->
-<?php 
-          foreach ($sm_berita as $row) {
-           ?>
-
-  <div class="row">
-  <div id="modal-view<?=$row->id_berita;?>" class="modal fade">
-    <div class="modal-dialog">
- 
-<form action="#" method="post">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">View Data</h4>
-        </div>
-        <div class="modal-body">
- 
-          <input type="hidden" readonly value="<?=$row->id_berita;?>" name="id_komentar" class="form-control" >
- 
-      
-
-           <div class="form-group">
-            <label>Username</label>
-            <input type="text" value="<?=$row->username;?>" name="nama_lengkap" class="form-control" >
-          </div>
-
-          
-            <div class="form-group">
-            <label>Nama Desa</label>
-            <input type="text" value="<?=$row->nama_desa;?>" name="nama_lengkap" class="form-control" >
-          </div>
- <div class="form-group">
-            <label>Tanggal</label>
-            <input type="text" value="<?=$row->created_at;?>" name="nama_lengkap" class="form-control" >
-          </div>
- <div class="form-group">
-            <label>Kategori</label>
-            <input type="text" value="<?=$row->kategori;?>" name="nama_lengkap" class="form-control" >
-          </div>
-
-                 
-                 
-                 
-
-        </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <input type="button" class="btn btn-warning" value="Print" onclick="window.print()" />
-          </div>
-        </form>
-
-     </div>
-  </div>
-</div>
-        <?php } ?>
 <script src="<?php echo base_url();?>assets/admin/dist/js/app.min.js"></script>
 </body>
 </html>

@@ -31,7 +31,7 @@
 
 
       <div class="box-header">
-        <h3 class="box-title">Data Laporan Ibu Hamil</h3>
+        <h3 class="box-title">Data Laporan Bayi</h3>
         <div class="box-body">
 
           <div class="box-header">
@@ -136,7 +136,7 @@
           <tbody id="isi">
           <?php 
           $no = $this->uri->segment('3') + 1;
-          foreach ($sm_berita as $row) {
+          foreach ($dt_bayi as $row) {
  
            ?>
           <tr>
@@ -145,13 +145,13 @@
             <td><?php echo tgl_indo($row->created_at); ?></td>
 
 
-            <td><?php echo $row->kategori_bumil; ?></td>
-            <td><?php echo $row->nama_desa; ?></td>
+            <td><?php echo $row->kategori; ?></td>
+            <td><?php echo $row->nm_desa; ?></td>
 
-             <td><a href="<?php echo base_url();?>dashboard/cetak/<?php echo $row->id_berita;?>">View</a>
+             <td><a href="<?php echo base_url();?>dashboard/cetak_data_bayi/<?php echo $row->id_bayi;?>">View</a>
 </td>
 
-             <td><a href="<?php echo base_url(); ?>dashboard/proses_hapus_kgiatanuser/<?php echo $row->id_berita ; ?>">Delete</a></td>
+             <td><a href="<?php echo base_url(); ?>dashboard/hapus_bayi/<?php echo $row->id_bayi ; ?>">Delete</a></td>
 
              
            
@@ -387,11 +387,11 @@
 
     <!-- Modal Ubah -->
 <?php 
-          foreach ($sm_berita as $row) {
+          foreach ($dt_bayi as $row) {
            ?>
 
   <div class="row">
-  <div id="modal-view<?=$row->id_berita;?>" class="modal fade">
+  <div id="modal-view<?=$row->id_bayi;?>" class="modal fade">
     <div class="modal-dialog">
  
 <form action="#" method="post">
@@ -402,7 +402,7 @@
         </div>
         <div class="modal-body">
  
-          <input type="hidden" readonly value="<?=$row->id_berita;?>" name="id_komentar" class="form-control" >
+          <input type="hidden" readonly value="<?=$row->id_bayi;?>" name="id_komentar" class="form-control" >
  
       
 

@@ -44,11 +44,70 @@
 
             <input type="hidden" class="form-control" name="username" value="<?php echo $this->session->userdata('username'); ?>">
 
-             <input type="hidden" class="form-control" name="kategori" value="<?php echo $this->session->userdata('kategori'); ?>">
-        
+             
           
           </div>
+<div class="form-group">
+<label>Kategori</label>
 
+
+    
+            <select name="kategori_bumil" id="kategori_bumil" class="form-control" required="">
+              
+              <option value="Ibu Hamil">Ibu Hamil</option>
+              <option value="Bayi Lahir">Bayi Lahir</option>
+              <option value="Imunisasi">Imunisasi</option>
+<option value="Wanita Subur">Wanita Subur</option>
+<option value="Akseptor KB">akseptor KB</option>
+
+            
+            </select>
+</div>
+<div class="form-group">
+            <label>Nama Desa</label>
+              <input type="text" class="form-control" name="nama_desa" required="" placeholder="Silahkan Input Nama Desa" value="<?php echo $this->session->userdata('kategori'); ?>">
+          
+          </div>
+<div class="form-group">
+            <label>Nama ibu</label>
+              <input type="text" class="form-control" name="nama_ibu" required="" placeholder="Silahkan Input Nama Ibu">
+          
+          </div>
+          <div class="form-group">
+            <label>TTL</label>
+              <input type="text" class="form-control" name="ttl" required="" placeholder="contoh : jambi, 12-MEI-1970">
+          
+          </div>
+           <div class="form-group">
+            <label>NIK</label>
+              <input type="number" class="form-control" name="nik" required="" placeholder="Silahkan Input NIK">
+          
+          </div>
+          <div class="form-group">
+            <label>Usia</label>
+              <input type="number" class="form-control" name="usia" required="" placeholder="Silahkan Input Usia">
+          
+          </div>
+          <div class="form-group">
+            <label>Nama Suami</label>
+              <input type="text" class="form-control" name="nama_suami" required="" placeholder="Silahkan Input Nama Suami">
+          
+          </div>
+          <div class="form-group">
+            <label>Hamil Ke</label>
+              <input type="number" class="form-control" name="hamil_ke" required="" placeholder="Input Angka">
+          
+          </div>
+          <div class="form-group">
+            <label>Lingkar Lila</label>
+              <input type="text" class="form-control" name="lingkar_lila" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Usia Kehamilan Saat Ini</label>
+              <input type="text" class="form-control" name="uksi" required="" placeholder="Silahkan Input Usia Kehamilan">
+          
+          </div>
            <div class="form-group">
             <label>Tanggal</label>
             <?php 
@@ -57,20 +116,8 @@
             <input type="date" class="form-control" name="created_at" required="" value="<?php echo $tgl; ?>">
             <?php }?>
           </div>
-
-          <div class="form-group">
-            <label>File</label>
-            <input type="file" class="form-control" name="image" required="">
-            <?php
-          echo $this->session->flashdata('error');
-          ?>
-          </div>
         
-          <div class="form-group">
-            <label>Keterangan</label>
-              <input type="text" class="form-control" name="keterangan" required="">
           
-          </div>
         </div>
          </div>
         <!-- /.box-body -->

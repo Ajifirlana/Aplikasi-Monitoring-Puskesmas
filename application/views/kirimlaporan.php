@@ -25,12 +25,36 @@
     <div class="row">
   <div class="col-md-12">
 
-    <a href="<?php echo base_url();?>index.php/dashboard/tmbhkirimlaporan">
-      <button class="btn btn-primary"><i class="fa fa-plus"></i> Kirim Laporan</button><br><br>
-    </a>
+    
+   
+    
+    <table class="" cellspacing="3" width="10px">
+          <thead>
+          <tr>
+            <th><a href="<?php echo base_url();?>dashboard/tmbhkirimlaporan">
+      <button class="btn btn-primary"><i class="fa fa-plus"></i> Data Ibu Melahirkan</button><br><br>
+    </a></th>
+            <th><a href="<?php echo base_url();?>dashboard/data_bayi_baru_lahir">
+      <button class="btn btn-primary"><i class="fa fa-plus"></i> Data Bayi Baru Lahir</button><br><br>
+    </a></th>
+            </th>
+            <th><a href="<?php echo base_url();?>dashboard/data_imunisasi">
+      <button class="btn btn-primary"><i class="fa fa-plus"></i> Imunisasi</button><br><br>
+    </a></th></th>
+            <th><a href="<?php echo base_url();?>dashboard/data_wanita_subur">
+      <button class="btn btn-primary"><i class="fa fa-plus"></i> Wanita usia subur</button><br><br>
+    </a></th>
+          </th>
+          <th><a href="<?php echo base_url();?>dashboard/data_akseptor_kb">
+      <button class="btn btn-primary"><i class="fa fa-plus"></i> Akseptor KB</button><br><br>
+    </a></th>
+          </tr>
+         
+        </thead>
+      </table>
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Data Kegiatan</h3>
+        <h3 class="box-title">Data Ibu Hamil</h3>
 
 
       </div>
@@ -58,15 +82,21 @@
 
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="berita" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="kegiatan" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
           <tr>
             <th>No.</th>
+            <th>Tgl</th>
+            <th>Kategori</th>
+            <th>NIK</th>
+<th>Usia</th>
+<th>Nama Suami</th>
+<th>Hamil Ke</th>
 
-            <th>Tanggal</th>
-            <th>File</th>
-
-            <th>Keterangan</th>
+<th>Lingkar Lila</th>
+<th>Usia kehamilan saat ini</th>
+ 
+            <th>TTL</th>
             <th>Aksi</th>
           </tr>
           </thead>
@@ -80,9 +110,17 @@
             <td><?php echo $no; ?></td>
 
             <td><?php echo $tgl; ?></td>
-            <td align="center"><a data-toggle="modal" data-target="#modal-hapus<?=$row->id_berita;?>"><img src="<?php echo site_url();?>uploads/<?php echo $row->image; ?>" width="100px" height="100px" alt=""></td>
+            <td><?php echo $row->kategori_bumil; ?></td>
+            <td><?php echo $row->nik; ?></td>
+           <td><?php echo $row->usia; ?></td>
+           <td><?php echo $row->nama_suami; ?></td>
+
+           <td><?php echo $row->hamil_ke; ?></td>
+            <td><?php echo $row->lingkar_lila; ?></td>
+           <td><?php echo $row->uksi; ?></td>
+           
            </td>
-            <td><?php echo $row->keterangan; ?></td>
+            <td><?php echo $row->ttl; ?></td>
 
 
          
@@ -100,8 +138,227 @@
           </tbody>
           
         </table>
+       
+       <div class="box-header">
+        <h3 class="box-title">Data Bayi</h3>
+
+
+      </div>
+
+        <table id="kegiatanbayi" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+            <th>No.</th>
+            <th>Tgl</th>
+            <th>Kategori</th>
+            <th>NIK</th>
+<th>Nama Desa</th>
+<th>Nama Ibu</th>
+            <th>Aksi</th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php 
+          $no = $this->uri->segment('3') + 1;
+          foreach ($laporan_bayi->result() as $row) {
+            $tgl = tgl_indo($row->created_at); 
+           ?>
+          <tr>
+            <td><?php echo $no; ?></td>
+
+            <td><?php echo $tgl; ?></td>
+            <td><?php echo $row->kategori; ?></td>
+            <td><?php echo $row->no_induk; ?></td>
+           <td><?php echo $row->nm_desa; ?></td>
+           <td><?php echo $row->nama_ibu; ?></td>
+
+            
+            <td>
+              
+                 <a data-toggle="modal" data-target="#modal-editbayi<?=$row->id_bayi;?>" button class="btn btn-info btn-flat btn-xs" data-popup="tooltip" data-placement="top" title="Edit Data">Edit</a>
+
+ <a data-toggle="modal" data-target="#modal-tampilbayi<?=$row->id_bayi;?>" button class="btn btn-danger btn-flat btn-xs" data-popup="tooltip" data-placement="top" title="Tampil Data">Tampil</a>
+
+            </td>
+          </tr>
+          <?php $no++; } ?>
+
+          </tbody>
+          
+        </table>
          
 
+       <div class="box-header">
+        <h3 class="box-title">Data Wanita Subur</h3>
+
+
+      </div>
+
+           <table id="kegiatanws" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+            <th>No.</th>
+            <th>Tgl</th>
+            <th>Kategori</th>
+            <th>NIK</th>
+<th>Nama Desa</th>
+<th>Nama Ibu</th>
+            <th>Aksi</th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php 
+          $no = $this->uri->segment('3') + 1;
+          foreach ($laporan_wanita_subur as $row) {
+            $tgl = tgl_indo($row->date_input_at); 
+           ?>
+          <tr>
+            <td><?php echo $no; ?></td>
+
+            <td><?php echo $tgl; ?></td>
+            <td><?php echo $row->kategori; ?></td>
+            <td><?php echo $row->nik; ?></td>
+           <td><?php echo $row->desa; ?></td>
+           <td><?php echo $row->nama; ?></td>
+
+            
+            <td>
+              
+                 <a data-toggle="modal" data-target="#modal-editws<?=$row->id_wanita;?>" button class="btn btn-info btn-flat btn-xs" data-popup="tooltip" data-placement="top" title="Edit Data">Edit</a>
+
+ <a data-toggle="modal" data-target="#modal-hapusws<?=$row->id_wanita;?>" button class="btn btn-danger btn-flat btn-xs" data-popup="tooltip" data-placement="top" title="Tampil Data">Tampil</a>
+
+            </td>
+          </tr>
+          <?php $no++; } ?>
+
+          </tbody>
+          
+        </table>
+         
+
+       <div class="box-header">
+        <h3 class="box-title">Data Akseptor KB</h3>
+
+
+      </div>
+
+           <table id="akseptorkb" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+            <th>No.</th>
+            <th>Tgl</th>
+            <th>Kategori</th>
+            <th>NIK</th>
+<th>Nama Desa</th>
+            <th>Aksi</th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php 
+          $no = $this->uri->segment('3') + 1;
+          foreach ($laporan_akseptor_kb as $row) {
+            $tgl = tgl_indo($row->created_at); 
+           ?>
+          <tr>
+            <td><?php echo $no; ?></td>
+
+            <td><?php echo $tgl; ?></td>
+            <td><?php echo $row->kategori; ?></td>
+            <td><?php echo $row->nik; ?></td>
+           <td><?php echo $row->nama_desa; ?></td>
+
+            
+            <td>
+              
+                 <a data-toggle="modal" data-target="#modal-editakb<?=$row->id_akseptor;?>" button class="btn btn-info btn-flat btn-xs" data-popup="tooltip" data-placement="top" title="Edit Data">Edit</a>
+
+ <a data-toggle="modal" data-target="#modal-hapusakb<?=$row->id_akseptor;?>" button class="btn btn-danger btn-flat btn-xs" data-popup="tooltip" data-placement="top" title="Tampil Data">Tampil</a>
+
+            </td>
+          </tr>
+          <?php $no++; } ?>
+
+          </tbody>
+          
+        </table>
+         
+ <!-- Modal hapus -->
+<?php 
+
+          foreach ($laporan_bayi->result() as $row) {
+           ?>
+
+  <div class="row">
+  <div id="modal-tampilbayi<?=$row->id_bayi;?>" class="modal fade">
+    <div class="modal-dialog">
+ 
+<form action="<?php echo base_url();?>index.php/dashboard/proses_hapus_berita/<?php echo $row->id_bayi; ?>" method="post">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tampil Data Kegiatan</h4>
+        </div>
+        <div class="modal-body">
+ 
+          <input type="hidden" readonly value="<?=$row->id_bayi;?>" name="id_berita" class="form-control" >
+ <div class="form-group">
+            <label>Tanggal</label>
+            <br>
+            <label>"<?=tgl_indo($row->created_at);?>"</label>
+          </div>
+ <div class="form-group">
+            <label>Kategori</label>
+            <br>
+            <label>"<?=$row->kategori;?>"</label>
+          </div>
+           <div class="form-group">
+            <label>NIK</label>
+            <br>
+            <label>"<?=$row->no_induk;?>"</label>
+          </div>
+          <div class="form-group">
+            <label>Nama Desa</label>
+            <br>
+            <label>"<?=$row->nm_desa;?>"</label>
+          </div>
+           
+           <div class="form-group">
+            <label>Hamil Ke</label>
+            <br>
+            <label>"<?=$row->hml_ke;?>"</label>
+          </div>
+        <div class="form-group">
+            <label>Lingkar Lila</label>
+            <br>
+            <label>"<?=$row->lila;?>"</label>
+          </div>
+          <div class="form-group">
+            <label>Diagnosa</label>
+            <br>
+            <label>"<?=$row->diagnosa;?>"</label>
+          </div>
+         <div class="form-group">
+            <label>Masalah</label>
+            <br>
+            <label>"<?=$row->masalah;?>"</label>
+          </div>
+          <div class="form-group">
+            <label>Nama Ibu</label>
+            <br>
+            <label>"<?=$row->nama_ibu;?>"</label>
+          </div>
+         
+        </div>
+     
+        </form>
+
+     </div>
+  </div>
+</div>
+        <?php } ?>
+
+  <!-- Modal hapus -->
       <!-- Modal hapus -->
 <?php 
 
@@ -121,24 +378,111 @@
         <div class="modal-body">
  
           <input type="hidden" readonly value="<?=$row->id_berita;?>" name="id_berita" class="form-control" >
+ <div class="form-group">
+            <label>Tanggal</label>
+            <br>
+            <label>"<?=tgl_indo($row->created_at);?>"</label>
+          </div>
+ <div class="form-group">
+            <label>Kategori</label>
+            <br>
+            <label>"<?=$row->kategori_bumil;?>"</label>
+          </div>
+           <div class="form-group">
+            <label>NIK</label>
+            <br>
+            <label>"<?=$row->nik;?>"</label>
+          </div>
+          <div class="form-group">
+            <label>Usia</label>
+            <br>
+            <label>"<?=$row->usia;?>"</label>
+          </div>
+<div class="form-group">
+            <label>Nama Suami</label>
+            <br>
+            <label>"<?=$row->nama_suami;?>"</label>
+          </div>
+           
+           <div class="form-group">
+            <label>Hamil Ke</label>
+            <br>
+            <label>"<?=$row->hamil_ke;?>"</label>
+          </div>
+        <div class="form-group">
+            <label>Lingkar Lila</label>
+            <br>
+            <label>"<?=$row->lingkar_lila;?>"</label>
+          </div>
+          <div class="form-group">
+            <label>Usia Kehamilan Saat Ini</label>
+            <br>
+            <label>"<?=$row->uksi;?>"</label>
+          </div>
+         <div class="form-group">
+            <label>TTL</label>
+            <br>
+            <label>"<?=$row->ttl;?>"</label>
+          </div>
+          <div class="form-group">
+            <label>Nama Ibu</label>
+            <br>
+            <label>"<?=$row->nama_ibu;?>"</label>
+          </div>
+         
+        </div>
+     
+        </form>
+
+     </div>
+  </div>
+</div>
+        <?php } ?>
+
+  <!-- Modal hapus -->
+<?php 
+
+          foreach ($laporan_wanita_subur as $row) {
+           ?>
+
+  <div class="row">
+  <div id="modal-hapusws<?=$row->id_wanita;?>" class="modal fade">
+    <div class="modal-dialog">
+ 
+<form action="<?php echo base_url();?>index.php/dashboard/proses_hapus_berita/<?php echo $row->id_wanita; ?>" method="post">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tampil Data Kegiatan</h4>
+        </div>
+        <div class="modal-body">
+ 
+          <input type="hidden" readonly value="<?=$row->id_wanita;?>" name="id_berita" class="form-control" >
  
  <div class="form-group">
             <label>Kategori</label>
             <br>
             <label>"<?=$row->kategori;?>"</label>
           </div>
-
-            
+<div class="form-group">
+            <label>Nama Desa</label>
+            <br>
+            <label>"<?=$row->desa;?>"</label>
+          </div>
+         
+            <div class="form-group">
+            <label>NIK</label>
+            <br>
+            <label>"<?=$row->nik;?>"</label>
+          </div>
         
-            <center><label>Foto Kegiatan</label></center>
-          
-            <td><center> 
-<embed src="<?php echo site_url();?>uploads/<?php echo $row->image; ?>" frameborder="0" width="100%" height="400px">
-
-            </center>
-            </td>
-        
-          
+       
+          <div class="form-group">
+            <label>Nama Ibu</label>
+            <br>
+            <label>"<?=$row->nama;?>"</label>
+          </div>
+         
         </div>
      
         </form>
@@ -150,6 +494,74 @@
 
 
 
+
+      <!-- Modal Ubah -->
+<?php 
+          foreach ($laporan_bayi->result() as $row) {
+           ?>
+
+  <div class="row">
+  <div id="modal-editbayi<?=$row->id_bayi;?>" class="modal fade">
+    <div class="modal-dialog">
+ 
+<form action="<?php echo base_url('dashboard/edit_laporanbayi')?>" method="post">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Data Bayi</h4>
+        </div>
+        <div class="modal-body">
+ 
+          <input type="hidden" name="id_bayi" value="<?=$row->id_bayi;?>" class="form-control" >
+ 
+       
+
+         <div class="form-group">
+            <label>Jadwal Kegiatan</label>
+            <input type="date" name="created_at" class="form-control" value="<?=$row->created_at;?>">
+
+          </div>
+            <div class="form-group">
+            <label>Kategori</label>
+            <input type="text" name="kategori" class="form-control" value="<?=$row->kategori;?>" placeholder="isi nama desa dengan benar">
+          </div>
+            <div class="form-group">
+            <label>Nama Desa</label>
+            <input type="text" name="nm_desa" class="form-control" value="<?=$row->nm_desa;?>" placeholder="isi nama desa dengan benar">
+          </div>
+
+           <div class="form-group">
+            <label>NIK</label>
+            <input type="number" name="no_induk" class="form-control" value="<?=$row->no_induk;?>" placeholder="isi nik dengan benar">
+
+          </div>
+ <div class="form-group">
+            <label>Nama Ibu</label>
+            <input type="text" name="nama_ibu" class="form-control" value="<?=$row->nama_ibu;?>" placeholder="isi nik dengan benar">
+
+          </div>
+
+          <div class="form-group">
+            <label>Hamil Ke</label>
+            <input type="number" name="hml_ke" class="form-control" value="<?=$row->hml_ke;?>">
+
+          </div>
+
+
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-warning"><i class="icon-pencil5"></i> Edit</button>
+          </div>
+        </form>
+
+     </div>
+  </div>
+</div>
+        <?php } ?>
+
+
+<!-- END Modal Ubah -->
 
       <!-- Modal Ubah -->
 <?php 
@@ -170,27 +582,65 @@
  
           <input type="hidden" name="id_berita" value="<?=$row->id_berita;?>" class="form-control" >
  
-         
+       
+
          <div class="form-group">
             <label>Jadwal Kegiatan</label>
             <input type="date" name="created_at" class="form-control" value="<?=$row->created_at;?>">
 
           </div>
-
-          <div class="form-group">
-            <label>Capaian</label>
-            <input type="text" name="capaian" class="form-control" value="<?=$row->capaian;?>">
+            <div class="form-group">
+            <label>Nama Desa</label>
+            <input type="text" name="nama_desa" class="form-control" value="<?=$row->nama_desa;?>" placeholder="isi nama desa dengan benar">
+          </div>
+ <div class="form-group">
+            <label>Nama Ibu</label>
+            <input type="text" name="nama_ibu" class="form-control" value="<?=$row->nama_ibu;?>" placeholder="isi nik dengan benar">
 
           </div>
 
           <div class="form-group">
-            <label>Keterangan</label>
-            <input type="text" name="keterangan" class="form-control" value="<?=$row->keterangan;?>">
+            <label>NIK</label>
+            <input type="number" name="nik" class="form-control" value="<?=$row->nik;?>" placeholder="isi nik dengan benar">
+
+          </div>
+
+         
+            <div class="form-group">
+            <label>Usia</label>
+            <input type="number" name="usia" class="form-control" value="<?=$row->usia;?>" required="">
+
+          </div>
+          <div class="form-group">
+            <label>Nama Suami</label>
+            <input type="text" name="nama_suami" class="form-control" value="<?=$row->nama_suami;?>" required="">
 
           </div>
            
-      
+      <div class="form-group">
+            <label>Hamil Ke</label>
+            <input type="text" name="hamil_ke" class="form-control" value="<?=$row->hamil_ke;?>" required="">
+
+          </div>
         
+      <div class="form-group">
+            <label>Lingkar Lila</label>
+            <input type="text" name="lingkar_lila" class="form-control" value="<?=$row->lingkar_lila;?>" required="">
+
+          </div>
+
+
+      <div class="form-group">
+            <label>Usia Kehamilan Saat ini</label>
+            <input type="text" name="uksi" class="form-control" value="<?=$row->uksi;?>" required="">
+
+          </div>
+        
+ <div class="form-group">
+            <label>Tempat dan Tanggal Lahir</label>
+            <input type="text" name="ttl" class="form-control" value="<?=$row->ttl;?>" required="">
+
+          </div>
 
         </div>
           <div class="modal-footer">
@@ -421,9 +871,28 @@
 </div>
 <script type="text/javascript">
   $(document).ready( function () {
-      $('#berita').DataTable();
+      $('#kegiatan').DataTable();
   } );
 </script>
+<script type="text/javascript">
+  $(document).ready( function () {
+      $('#kegiatanbayi').DataTable();
+  } );
+</script>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+      $('#kegiatanws').DataTable();
+  } );
+</script>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+      $('#akseptorkb').DataTable();
+  } );
+</script>
+
+
 <!-- ./wrapper -->
 
 <script src="<?php echo base_url();?>assets/admin/dist/js/app.min.js"></script>

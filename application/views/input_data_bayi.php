@@ -1,176 +1,220 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <?php $this->load->view('template_a');?>
- 
+<?php $this->load->view('template_a');?>
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-  <?php include 'top-menu.php'; ?>
+  <?php include 'config/top-menu.php'; ?>
   <!-- Left side column. contains the logo and sidebar -->
   
-  <?php include 'side.php'; ?>
+  <?php include 'config/side.php'; ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        
-        <small>Control Panel</small>
-      </h1>
-     
-    </section>
-
-    <!-- Main content -->
+  <!-- Main content -->
     <section class="content">
     <div class="row">
   <div class="col-md-12">
- 
     <div class="box">
 
-
-      <div class="box-header">
-        <h3 class="box-title">Data Laporan Ibu Hamil</h3>
-        <div class="box-body">
-
-          <div class="box-header">
-  <?php
+      <!-- /.box-header -->
+    
+ <div class="row">
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Data Bayi Baru Lahir</h3>
+        <?php
           echo $this->session->flashdata('msg');
           ?>
-
       </div>
-<table class="table table-striped table-bordered" cellspacing="0" width="100%">
-          <thead>
-          <tr>
-            <?php echo form_open('dashboard/search') ?>
-       
-            <th><select name="kategori" class="form-control" required="">
-              <?php 
-
-
-          foreach ($data_desa as $row) 
-          {
-           ?> 
-              <option value="<?php echo $row->kategori; ?>"><?php echo $row->kategori; ?></option>
-
-
-          <?php } ?>
-            
-            </select>
-          </th>
-            <th><input type="date" class="form-control" name="tglmulai" placeholder="search" required="">
-
-    
-  </th>
-            <th><input type="date" class="form-control" name="tglakhir" placeholder="search" required=""></th>
-            <th>
-    <input type="submit" name="search_submit" class="btn btn-primary btn-flat" value="Tampilkan"></th>
-          <?php echo form_close() ?>
-      
-          </tr>
-          </thead>
-        </table>
-</div>
-       
-    </div>
-
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#laporan').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                text: 'Print all',
-                exportOptions: {
-                    modifier: {
-                        selected: null
-                    }
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print selected'
-            }
-        ],
-        select: true
-
-    } );
-} );
-
-  function printContent(el){
-    var restorepage = document.body.innerHTML;
-    var printcontent = document.getElementById(el).innerHTML;
-    document.body.innerHTML = printcontent;
-    window.print();
-    document.body.innerHTML = restorepage;
-  }
-
-  $("#kategori").submit(function(e) {
-    e.preventDefault();
-    var id = $("#kategori").val();
-    // console.log(id);
-    var url = "<?= site_url('index.php/Dashboard/filter/') ?>" + id;
-    $('#result').load(url);
-   });
-
-</script>
       <!-- /.box-header -->
-      <div class="box-body">
+      <!-- form start -->
+                                  
 
+    <table id="kategori" class="table table-bordered table-striped">
+      <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        <div class="box-body">
+         
+          <div class="form-group">
+            <input type="hidden" class="form-control" name="create_by" value="<?php echo $this->session->userdata('id_user'); ?>">
 
-        <table id="laporan" class="table table-striped table-bordered" cellspacing="0" width="100%">
-          <thead>
-          <tr>
-            <th>No.</th>
-            <th>Nama User</th>
-            <th>Tanggal</th>
-            <th>Kategori</th>
-            <th>Nama Desa </th>
-            <th>Aksi</th>
-          <th></th>
-          </tr>
-          </thead>
-          <tbody id="isi">
-          <?php 
-          $no = $this->uri->segment('3') + 1;
-          foreach ($sm_berita as $row) {
- 
-           ?>
-          <tr>
-            <td><?php echo $no; ?></td>
-  <td><?php echo $row->username; ?></td>
-            <td><?php echo tgl_indo($row->created_at); ?></td>
-
-
-            <td><?php echo $row->kategori_bumil; ?></td>
-            <td><?php echo $row->nama_desa; ?></td>
-
-             <td><a href="<?php echo base_url();?>dashboard/cetak/<?php echo $row->id_berita;?>">View</a>
-</td>
-
-             <td><a href="<?php echo base_url(); ?>dashboard/proses_hapus_kgiatanuser/<?php echo $row->id_berita ; ?>">Delete</a></td>
+            <input type="hidden" class="form-control" name="username" value="<?php echo $this->session->userdata('username'); ?>">
 
              
-           
-          </tr>
-          <?php $no++; } ?>
+            <input type="hidden" class="form-control" name="nm_desa" value="<?php echo $this->session->userdata('kategori'); ?>">
 
-          </tbody>
-
-        </table>
-
-<script type="text/javascript">
-  $(document).ready( function () {
-      $('#laporan').DataTable();
-  } );
-</script>
+             
+          
+          </div>
+<div class="form-group">
+<label>Kategori</label>
 
 
+    
+            <select name="kategori" class="form-control" required="">
+              
+              <option value="Ibu Hamil">Ibu Hamil</option>
+              <option value="Bayi Lahir">Bayi Lahir</option>
+              <option value="Imunisasi">Imunisasi</option>
+<option value="Wanita Subur">Wanita Subur</option>
+<option value="Akseptor KB">akseptor KB</option>
 
-    </div>
+            
+            </select>
+</div>
+<div class="form-group">
+            <label>Nama ibu</label>
+              <input type="text" class="form-control" name="nama_ibu" required="" placeholder="Silahkan Input Nama Ibu">
+          
+          </div>
+
+          <div class="form-group">
+            <label>NIK</label>
+              <input type="number" class="form-control" name="no_induk" required="" placeholder="Silahkan Input NIK">
+          
+          </div>
+
+
+          <div class="form-group">
+            <label>Hamil Ke</label>
+              <input type="text" class="form-control" name="hml_ke" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Jari Tangan</label>
+              <input type="text" class="form-control" name="jari_tangan" required="">
+          
+          </div>
+           <div class="form-group">
+            <label>Jari Kaki</label>
+              <input type="text" class="form-control" name="jari_kaki" required="" >
+          
+          </div>
+          <div class="form-group">
+            <label>Posisi dan Bentuk</label>
+              <input type="text" class="form-control" name="posisi_dan_bentuk" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Pergerakan</label>
+              <input type="text" class="form-control" name="pergerakan" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin</label>
+              <select name="jenis_kelamin" class="form-control" required="">
+              <option value="Laki-Laki">Laki-Laki</option>
+<option value="Perempuan">Perempuan</option>
+              </select>
+              
+          
+          </div>
+          <div class="form-group">
+            <label>BAK Pertama</label>
+              <input type="text" class="form-control" name="bak_pertama" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>BAB Pertama</label>
+              <input type="text" class="form-control" name="bab_pertama" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Menghisap ( Sucking )</label>
+              <input type="text" class="form-control" name="menghisap" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Menggenggam ( Graping )</label>
+              <input type="text" class="form-control" name="menggengam" required=""">
+          
+          </div>
+          <div class="form-group">
+            <label>Reflek Kaki ( Staping )</label>
+              <input type="text" class="form-control" name="reflek_kaki" required="">
+          
+          </div>
+           <div class="form-group">
+            <label>Reflek Moro</label>
+              <input type="text" class="form-control" name="reflek_moro" required="">
+          
+          </div>
+
+          <div class="form-group">
+            <label>Berat Badan</label>
+              <input type="text" class="form-control" name="berat_badan" required="">
+          
+          </div>
+
+          <div class="form-group">
+            <label>Tinggi Badan</label>
+              <input type="text" class="form-control" name="tinggi_badan" required="">
+          
+          </div>
+
+           <div class="form-group">
+            <label>Lingkar Kepala</label>
+              <input type="text" class="form-control" name="lingkar_kepala" required="">
+          
+          </div>
+
+          <div class="form-group">
+            <label>Lingkar Dada</label>
+              <input type="text" class="form-control" name="lingkar_dada" required="">
+          
+          </div>
+ <div class="form-group">
+            <label>LILA</label>
+              <input type="text" class="form-control" name="lila" required="">
+          
+          </div>
+          <div class="form-group">
+            <label>Diagnosa</label>
+              <input type="text" class="form-control" name="diagnosa" required="">
+          
+          </div>
+
+          <div class="form-group">
+            <label>Masalah</label>
+              <input type="text" class="form-control" name="masalah" required="">
+          
+          </div>
+           <div class="form-group">
+            <label>Kebutuhan</label>
+              <input type="text" class="form-control" name="kebutuhan" required="">
+          
+          </div>
+
+          
+
+           <div class="form-group">
+            <label>Tanggal Hari Ini</label>
+            <?php 
+            $tgl = date('Y-m-d');
+            { ?>
+            <input type="date" class="form-control" name="created_at" required="" value="<?php echo $tgl; ?>">
+            <?php }?>
+          </div>
+        
+          
+        </div>
+         </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+          <input type="submit" name="btnsimpan" class="btn btn-primary btn-flat" value="Simpan">
+          <input type="reset" class="btn btn-danger btn-flat" value="Batal">
+        </div>
+      </form>
+    </table>
+    </div>        
+  </div>
+</div>     
+   
       <!-- /.box-body -->
     </div>
   </div>
@@ -384,62 +428,6 @@
 </div>
 <!-- ./wrapper -->
 
-
-    <!-- Modal Ubah -->
-<?php 
-          foreach ($sm_berita as $row) {
-           ?>
-
-  <div class="row">
-  <div id="modal-view<?=$row->id_berita;?>" class="modal fade">
-    <div class="modal-dialog">
- 
-<form action="#" method="post">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">View Data</h4>
-        </div>
-        <div class="modal-body">
- 
-          <input type="hidden" readonly value="<?=$row->id_berita;?>" name="id_komentar" class="form-control" >
- 
-      
-
-           <div class="form-group">
-            <label>Username</label>
-            <input type="text" value="<?=$row->username;?>" name="nama_lengkap" class="form-control" >
-          </div>
-
-          
-            <div class="form-group">
-            <label>Nama Desa</label>
-            <input type="text" value="<?=$row->nama_desa;?>" name="nama_lengkap" class="form-control" >
-          </div>
- <div class="form-group">
-            <label>Tanggal</label>
-            <input type="text" value="<?=$row->created_at;?>" name="nama_lengkap" class="form-control" >
-          </div>
- <div class="form-group">
-            <label>Kategori</label>
-            <input type="text" value="<?=$row->kategori;?>" name="nama_lengkap" class="form-control" >
-          </div>
-
-                 
-                 
-                 
-
-        </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <input type="button" class="btn btn-warning" value="Print" onclick="window.print()" />
-          </div>
-        </form>
-
-     </div>
-  </div>
-</div>
-        <?php } ?>
-<script src="<?php echo base_url();?>assets/admin/dist/js/app.min.js"></script>
+<?php $this->load->view('jquery_a');?>
 </body>
 </html>

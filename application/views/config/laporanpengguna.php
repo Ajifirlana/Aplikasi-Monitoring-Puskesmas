@@ -67,7 +67,7 @@
           <thead>
           <tr>
             <th>Username</th>
-            <th>Kategori</th>
+            <th>Kategori Desa</th>
             
           </tr>
           </thead>

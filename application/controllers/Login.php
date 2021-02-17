@@ -33,12 +33,13 @@ class Login extends CI_Controller {
                         <strong>Username Tidak Ditemukan!</strong> '.$error.'.
                      </div>'
                    );
-     redirect('index.php/login'); // Redirect ke halaman login
+     redirect('login'); // Redirect ke halaman login
     }else{
       if($password == $user->password){ // Jika password yang diinput sama dengan password yang didatabase
         $session = array(
           'authenticated'=>true, // Buat session authenticated dengan value true
           'username'=>$user->username,
+          'nama'=>$user->nama,
           'id_user'=>$user->id_user,
           'kategori'=>$user->kategori,
           'level'=>$user->level
@@ -51,25 +52,23 @@ class Login extends CI_Controller {
                         <strong>Selamat Datang Admin!</strong>'.$error.'.
                      </div>'
                    );
-        redirect('index.php/dashboard');
+        redirect('dashboard');
       }else{
         $this->session->set_flashdata('msg',
                      '
                      <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times; &nbsp;</span>
-                        </button>
-                        Password Yang Anda Masukkan Salah!'.$error.'.
+                      
+                       <strong>Password Yang Anda Masukkan Salah!</strong>'.$error.'.
                      </div>'
                    );
-        redirect('index.php/login'); // Redirect ke halaman login
+        redirect('login'); // Redirect ke halaman login
       }
     }
 }
 
 function logout(){
     $this->session->sess_destroy(); // Hapus semua session
-        Redirect('index.php/login');
+        Redirect('login');
    }
 
 }

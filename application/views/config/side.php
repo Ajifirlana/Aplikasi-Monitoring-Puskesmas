@@ -25,7 +25,7 @@
         <li class="header">MAIN NAVIGATION</li>
         
         <li class="treeview">
-          <a href="<?php echo base_url();?>index.php/dashboard/profile">
+          <a href="<?php echo base_url();?>dashboard/profile">
             <i class="fa fa-user"></i> <span>Profile</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -34,7 +34,7 @@
     
         </li>
         <li class="treeview">
-          <a href="<?php echo base_url();?>index.php/dashboard/chart">
+          <a href="<?php echo base_url();?>dashboard/chart">
             <i class="fa fa-user"></i> <span>Dashboard</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -57,7 +57,7 @@
           </a>
           <ul class="treeview-menu">
 
-            <li><a href="<?php echo base_url();?>index.php/dashboard/user"><i class="fa fa-inbox"></i>Data Pengguna</a></li>
+            <li><a href="<?php echo base_url();?>dashboard/user"><i class="fa fa-inbox"></i>Data Pengguna</a></li>
 
           </ul>
         </li>
@@ -65,7 +65,7 @@
       <?php 
         if ($this->session->userdata('level') == 'Admin') {
          ?>
-        <li class="treeview">
+        <!--<li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i> <span>Bidang Program</span>
             <span class="pull-right-container">
@@ -76,12 +76,14 @@
             
             <li><a href="<?php echo base_url();?>index.php/dashboard/bidangprogram"><i class="fa fa-inbox"></i>Data Bidang Program</a></li>
           </ul>
-        </li>
+        </li>-->
+        <!--
         <li class="treeview">
           <a href="<?php echo base_url();?>index.php/dashboard">
             <i class="fa fa-files-o"></i> <span>Kegiatan</span>
           </a>
         </li>
+      -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i> <span>Laporan</span>
@@ -90,11 +92,17 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url();?>index.php/dashboard/laporan"><i class="fa fa-inbox"></i>Data Laporan</a></li>
+            <li><a href="<?php echo base_url();?>dashboard/laporan"><i class="fa fa-inbox"></i>Data Laporan Ibu Hamil</a></li>
+            <li><a href="<?php echo base_url();?>dashboard/laporanbayi"><i class="fa fa-inbox"></i>Data Laporan Bayi</a></li>
+            <li><a href="<?php echo base_url();?>dashboard/laporan_imun"><i class="fa fa-inbox"></i>Data Laporan Imunisasi</a></li>
+            <li><a href="<?php echo base_url();?>dashboard/laporan_wanita_subur"><i class="fa fa-inbox"></i>Laporan Wanita Usia Subur</a></li>
+ <li><a href="<?php echo base_url();?>dashboard/laporan_akseptor_kb"><i class="fa fa-inbox"></i>Laporan Data Akseptor KB</a></li>
+
+
           </ul>
-          <ul class="treeview-menu">
+         <!-- <ul class="treeview-menu">
             <li><a href="<?php echo base_url();?>index.php/dashboard/laporan_pengguna"><i class="fa fa-inbox"></i>Laporan Data Pengguna </a></li>
-          </ul>
+          </ul>-->
         </li>
         
       <?php } ?>
@@ -102,13 +110,14 @@
        <?php 
         if ($this->session->userdata('level') == 'User') {
          ?>
-         <li class="treeview">
+         <!--<li class="treeview">
           <a href="<?php echo base_url();?>index.php/dashboard/kegiatan_user">
             <i class="fa fa-files-o"></i> <span>Kegiatan</span>
           </a>
         </li>
+      -->
          <li class="treeview">
-          <a href="<?php echo base_url();?>index.php/dashboard/kirimlaporan">
+          <a href="<?php echo base_url();?>dashboard/kirimlaporan">
             <i class="fa fa-files-o"></i> <span>Kirim Laporan Kegiatan</span>
           </a>
         </li>
@@ -118,7 +127,7 @@
          
        
       <li class="treeview">
-          <a href="<?php echo base_url();?>index.php/login/logout">
+          <a href="<?php echo base_url();?>login/logout">
             <i class="fa fa-user"></i> <span>Logout</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

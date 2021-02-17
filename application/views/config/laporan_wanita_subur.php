@@ -31,7 +31,7 @@
 
 
       <div class="box-header">
-        <h3 class="box-title">Data Laporan Ibu Hamil</h3>
+        <h3 class="box-title">Data Laporan Wanita Subur</h3>
         <div class="box-body">
 
           <div class="box-header">
@@ -125,10 +125,14 @@
           <thead>
           <tr>
             <th>No.</th>
-            <th>Nama User</th>
             <th>Tanggal</th>
+            <th>Nama Desa</th>
+            
             <th>Kategori</th>
-            <th>Nama Desa </th>
+
+            <th>Nama</th>
+
+            <th>Keterangan</th>
             <th>Aksi</th>
           <th></th>
           </tr>
@@ -136,22 +140,24 @@
           <tbody id="isi">
           <?php 
           $no = $this->uri->segment('3') + 1;
-          foreach ($sm_berita as $row) {
+          foreach ($data_akseptor as $row) {
  
            ?>
           <tr>
             <td><?php echo $no; ?></td>
-  <td><?php echo $row->username; ?></td>
-            <td><?php echo tgl_indo($row->created_at); ?></td>
+            <td><?php echo tgl_indo($row->date_input_at); ?></td>
+<td><?php echo $row->nama_desa; ?></td>
 
+  <td><?php echo $row->kategori; ?></td>
+            
 
-            <td><?php echo $row->kategori_bumil; ?></td>
-            <td><?php echo $row->nama_desa; ?></td>
+            <td><?php echo $row->nama; ?></td>
+            <td><?php echo $row->keterangan; ?></td>
 
-             <td><a href="<?php echo base_url();?>dashboard/cetak/<?php echo $row->id_berita;?>">View</a>
+             <td><a href="<?php echo base_url();?>dashboard/cetak_data_wanita_subur/<?php echo $row->id_wanita;?>">View</a>
 </td>
 
-             <td><a href="<?php echo base_url(); ?>dashboard/proses_hapus_kgiatanuser/<?php echo $row->id_berita ; ?>">Delete</a></td>
+             <td><a href="<?php echo base_url(); ?>dashboard/hapus_wanita_subur/<?php echo $row->id_wanita ; ?>">Delete</a></td>
 
              
            
@@ -387,11 +393,11 @@
 
     <!-- Modal Ubah -->
 <?php 
-          foreach ($sm_berita as $row) {
+          foreach ($dt_imunisasi as $row) {
            ?>
 
   <div class="row">
-  <div id="modal-view<?=$row->id_berita;?>" class="modal fade">
+  <div id="modal-view<?=$row->id_imunisasi;?>" class="modal fade">
     <div class="modal-dialog">
  
 <form action="#" method="post">
@@ -402,7 +408,7 @@
         </div>
         <div class="modal-body">
  
-          <input type="hidden" readonly value="<?=$row->id_berita;?>" name="id_komentar" class="form-control" >
+          <input type="hidden" readonly value="<?=$row->id_imunisasi;?>" name="id_komentar" class="form-control" >
  
       
 
